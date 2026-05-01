@@ -37,12 +37,11 @@ To validate that the network learns meaningful representations rather than memor
 
 ## 📁 Repository Structure
 ```text
-lenet5-pytorch-replication/
+01_Computer_Vision_LeNet5/
 ├── model.py                  # Core LeNet-5 architecture definition
 ├── train.py                  # Modular training and evaluation routines
 ├── test_lenet5.py            # Automated test script for validation
 ├── LeNet5_Replication.ipynb  # Primary presentation and visualization notebook
-├── requirements.txt          # Python dependencies
 ├── lenet5_mnist.pth          # Saved model weights (checkpoint)
 └── assets/                   # Figures and diagrams
     ├── architecture.png      # Diagram of LeNet-5
@@ -53,10 +52,11 @@ lenet5-pytorch-replication/
 ```
 
 ## ⚙️ How to Run
-1. Clone the repository: `git clone https://github.com/YOUR_USERNAME/lenet5-pytorch-replication.git`
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run the complete pipeline via the Jupyter Notebook: `jupyter notebook LeNet5_Replication.ipynb`
-4. Or, run the automated tests: `python test_lenet5.py`
+1. Clone the master repository: `git clone https://github.com/BELYAGOUBIABDELILAH/academic-paper-replications.git`
+2. Navigate to the project root and install dependencies: `pip install -r requirements.txt`
+3. Navigate to this directory: `cd 01_Computer_Vision_LeNet5`
+4. Run the complete pipeline via the Jupyter Notebook: `jupyter notebook LeNet5_Replication.ipynb`
+5. Or, run the automated tests: `python test_lenet5.py`
 
 ## 🛠️ Technologies Used
 * Python 3.x

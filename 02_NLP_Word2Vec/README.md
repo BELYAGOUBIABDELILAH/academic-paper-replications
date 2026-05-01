@@ -22,7 +22,10 @@ The visualization demonstrates the learned semantic clusters in the 50-dimension
 ![Loss Curve](assets/loss_curve.png)
 
 ## 🛠️ Usage
+1. Clone the master repository: `git clone https://github.com/BELYAGOUBIABDELILAH/academic-paper-replications.git`
+2. Navigate to the project root and install dependencies: `pip install -r requirements.txt`
+3. Navigate to this directory: `cd 02_NLP_Word2Vec`
+4. Run the notebook:
 ```bash
-pip install -r requirements.txt
 jupyter notebook Word2Vec_SkipGram.ipynb
 ```

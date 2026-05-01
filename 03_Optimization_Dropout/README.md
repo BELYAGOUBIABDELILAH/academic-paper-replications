@@ -16,6 +16,7 @@ The models were trained for 500 epochs. As hypothesized in the original paper, t
 *(Left: The standard model's validation loss diverges rapidly. Right: The Dropout model maintains coupled training and validation loss trajectories, proving generalized learning).*
 
 ## ⚙️ How to Run
-1. Clone the repository: `git clone https://github.com/YOUR_USERNAME/dropout-optimization-replication.git`
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run the Jupyter Notebook: `Dropout_Regularization.ipynb`
+1. Clone the master repository: `git clone https://github.com/BELYAGOUBIABDELILAH/academic-paper-replications.git`
+2. Navigate to the project root and install dependencies: `pip install -r requirements.txt`
+3. Navigate to this directory: `cd 03_Optimization_Dropout`
+4. Run the Jupyter Notebook: `Dropout_Regularization.ipynb`
