@@ -1,8 +1,9 @@
 # Research Analysis: FedAvg Replication (McMahan et al., 2017)
+https://arxiv.org/abs/1602.05629
 
 ## 1. Ablation Study — Local Epochs E
 
-The notebook already runs this ablation (E=1, 5, 20). The table below summarises the key result — rounds needed to reach 80% test accuracy on IID data.
+The notebook already runs this ablation (E=1, 5, 20). The table below summarises the key result: rounds needed to reach 80% test accuracy on IID data.
 
 | Variant | Local Epochs (E) | Rounds to 80% Acc | Final Acc (round 30) |
 |---------|-----------------|-------------------|----------------------|
@@ -11,7 +12,7 @@ The notebook already runs this ablation (E=1, 5, 20). The table below summarises
 | FedAvg E=5 | 5 | ~X | ~X% |
 | FedAvg E=20 | 20 | ~X | ~X% |
 
-**Finding:** Increasing E reduces communication rounds near-linearly up to a point. Beyond E=20, clients begin to overfit their local (non-IID) distribution and the aggregated model diverges — this is the "client drift" problem the paper acknowledges but does not fully solve (addressed later by FedProx, Li et al. 2020).
+**Finding:** Increasing E reduces communication rounds up to a point. Beyond E=20, clients begin to overfit their local (non-IID) distribution and the aggregated model diverges; this is the "client drift" problem described in the literature (addressed later by FedProx, Li et al. 2020).
 
 ---
 
@@ -28,7 +29,7 @@ The notebook already runs this ablation (E=1, 5, 20). The table below summarises
 | Reported speedup | 10–100× over FedSGD | ~X× (IID), ~X× (Non-IID) |
 | Non-IID split | Pathological (2 shards) | Pathological (2 shards) ✓ |
 
-**Gap explanation:** Using K=10 clients instead of 100 reduces the statistical heterogeneity challenge — with 10 clients and 2 shards each, every digit class is still represented across the federation. With K=100, many clients see genuinely rare classes, making Non-IID convergence substantially harder. The speedup ratio here will therefore be a lower bound on the paper's reported 10–100×.
+**Gap explanation:** Using K=10 clients instead of 100 reduces the statistical heterogeneity challenge: with 10 clients and 2 shards each, every digit class is still represented across the federation. With K=100, many clients see genuinely rare classes, making Non-IID convergence substantially harder. The speedup ratio here will therefore differ from the paper's reported 10–100×.
 
 ---
 
@@ -36,17 +37,17 @@ The notebook already runs this ablation (E=1, 5, 20). The table below summarises
 
 The convergence plots reveal two systematic failure modes:
 
-**Group 1 — Non-IID accuracy ceiling (~primary failure)**
+**Group 1: Non-IID accuracy ceiling (~primary failure)**
 FedAvg on Non-IID data converges to a lower final accuracy than on IID data, even with identical hyperparameters. The root cause is client drift: after E local epochs, each client's model moves toward its local optimum (e.g., optimized for digits 3 and 7 only). The weighted average of these drifted models is a poor global solution. The IID case does not exhibit this because all clients' local optima are close to the global optimum by construction.
 
-**Group 2 — FedSGD stagnation on Non-IID (~secondary failure)**
+**Group 2: FedSGD stagnation on Non-IID (~secondary failure)**
 FedSGD with Non-IID data can stagnate or oscillate because each gradient is computed on a biased local distribution. A client that sees only digits 0 and 1 sends a gradient that actively hurts performance on digits 6–9. With 1 gradient step per round, there is no within-round correction mechanism.
 
 ---
 
 ## 4. Training Curve
 
-The three-panel convergence plot is the central empirical result. Panel 1 (IID) shows FedAvg cleanly outpacing FedSGD. Panel 2 (Non-IID) shows both algorithms degraded but FedAvg remaining more stable. Panel 3 (E ablation) directly replicates the paper's Table 2 intuition — higher E reaches the same accuracy in fewer rounds.
+The three-panel convergence plot is the central empirical result. Panel 1 (IID) shows FedAvg outperforming FedSGD. Panel 2 (Non-IID) shows both algorithms degraded, with FedAvg remaining more stable. Panel 3 (E ablation) reflects the findings in Table 2 of the paper: higher E reaches the same accuracy in fewer rounds.
 
 ![FedAvg Convergence Results](fedavg_results.png)
 

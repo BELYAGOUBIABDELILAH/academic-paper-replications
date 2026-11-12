@@ -1,4 +1,5 @@
 # Research Analysis: LeNet-5 Replication
+https://ieeexplore.ieee.org/document/726791
 
 ## 1. Ablation Study — Activation Function
 
@@ -9,7 +10,7 @@ One architectural change was tested to isolate its effect: replacing the origina
 | Original (paper-faithful) | Tanh | ~98.78% |
 | Modified | ReLU | ~99.1% |
 
-**Finding:** ReLU improves accuracy by ~0.3pp. This is consistent with the broader literature — ReLU avoids the vanishing gradient problem that Tanh suffers in deeper stacks, even on a shallow 5-layer network trained for only 10 epochs.
+**Finding:** ReLU improves accuracy by ~0.3pp. This is consistent with the broader literature: ReLU avoids the vanishing gradient problem that Tanh suffers in deeper stacks, even on a shallow 5-layer network trained for only 10 epochs.
 
 ---
 
@@ -23,7 +24,7 @@ One architectural change was tested to isolate its effect: replacing the origina
 | Activation | Scaled Tanh | Tanh |
 | Pooling | Avg (trainable coeff.) | AvgPool2d (fixed) |
 
-**Gap explanation:** The ~0.4pp gap is attributable to three factors — fewer epochs (10 vs ~20), simplified pooling (no trainable coefficients), and the absence of the paper's custom learning rate schedule. Adam's adaptive rates partially compensate but do not fully replicate the original training dynamics.
+**Gap explanation:** The ~0.4pp gap is attributable to three factors: fewer epochs (10 vs ~20), simplified pooling (no trainable coefficients), and the absence of the paper's custom learning rate schedule. Adam's adaptive rates partially compensate but do not fully replicate the original training dynamics.
 
 ---
 
@@ -31,19 +32,19 @@ One architectural change was tested to isolate its effect: replacing the origina
 
 Inspection of the ~122 misclassified test images reveals two dominant failure groups:
 
-**Group 1 — Ambiguous handwriting (~60% of errors)**  
-Digits that are structurally valid but written atypically (e.g., a `7` with a horizontal stroke, or a `1` written with a wide base). These are difficult even for humans and represent the irreducible error floor of the dataset.
+**Group 1: Ambiguous handwriting (~60% of errors)**  
+Digits that are structurally valid but written atypically (e.g., a `7` with a horizontal stroke, or a `1` written with a wide base). These are difficult to classify unambiguously and represent an error floor of the dataset.
 
-**Group 2 — Similar-shape confusions (~35% of errors)**  
-Systematic confusion between visually similar digit pairs: `3↔8`, `4↔9`, `5↔6`. At 28×28 resolution, the distinguishing strokes (e.g., the closing loop in `8` vs. `3`) can be lost to stroke width variation, making global shape the dominant — and insufficient — signal.
+**Group 2: Similar-shape confusions (~35% of errors)**  
+Systematic confusion between visually similar digit pairs: `3↔8`, `4↔9`, `5↔6`. At 28×28 resolution, the distinguishing strokes (e.g., the closing loop in `8` vs. `3`) can be lost to stroke width variation, making global shape the dominant, yet insufficient, signal.
 
-**Residual (~5%):** Extreme outliers — near-blank images or heavily degraded samples with no recoverable structure.
+**Residual (~5%):** Extreme outliers, such as near-blank images or heavily degraded samples with no recoverable structure.
 
 ---
 
 ## 4. Training Curve
 
-The loss curve below shows rapid convergence in epochs 1–3, after which gains are marginal — consistent with Adam's aggressive early-step adaptation on a low-complexity dataset like MNIST.
+The loss curve below shows convergence in epochs 1–3, after which gains are marginal, consistent with Adam's early-step adaptation on a low-complexity dataset like MNIST.
 
 ![Training Loss Curve](assets/loss_curve.png)
 

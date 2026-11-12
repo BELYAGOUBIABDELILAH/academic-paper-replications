@@ -1,13 +1,14 @@
 # Federated Learning from Scratch
 ### Replicating McMahan et al. 2017 — FedAvg Algorithm
+https://arxiv.org/abs/1602.05629
 
 This repository contains a PyTorch implementation replicating the core findings of the foundational paper: **"Communication-Efficient Learning of Deep Networks from Decentralized Data"** by McMahan et al. (2017).
 
 ## 📌 Objective
-To build a robust, research-grade simulation of Federated Learning, demonstrating how to train a shared global model across decentralized devices without transferring raw data to a central server. This simulation explicitly compares a naive distributed approach (`FedSGD`) against the paper's novel approach (`FedAvg`).
+To implement a simulation of Federated Learning, showing how to train a shared global model across decentralized devices without transferring raw data to a central server. This simulation compares a baseline distributed approach (`FedSGD`) against the proposed `FedAvg` algorithm.
 
 ## 📊 Dataset & Partitioning Challenge
-A key challenge in federated learning is that real-world device data is **Non-IID** (Independent and Identically Distributed). A user's phone contains data tailored to them, not the global average. 
+A key challenge in federated learning is that client data is typically **Non-IID** (Independent and Identically Distributed), reflecting individual device usage rather than the population average. 
 This repository simulates and tests on both data splits using the MNIST dataset:
 * **IID Split**: Data is shuffled and uniformly distributed.
 * **Non-IID Split (Pathological)**: Data is sorted by label, and clients are restricted to seeing at most two digit classes.
@@ -26,11 +27,11 @@ We use a simple 2-layer Multi-Layer Perceptron (MLP) as described in the paper:
 2. **FedAvg:** Clients download the global model, train locally for $E$ epochs, and send the *updated weights* back to the server. The server performs a weighted average of these local models.
 
 ## 📉 Results: The Impact of Local Epochs ($E$)
-The critical contribution of FedAvg is demonstrating that **more local computation dramatically reduces the communication rounds** required to reach a target accuracy. 
+The central finding of FedAvg is showing that **more local computation reduces the communication rounds** required to reach a target accuracy. 
 
 ![Convergence Curve](assets/convergence_curve.png)
 
-*As seen above, higher local epoch counts ($E=5$, $E=20$) converge substantially faster than FedSGD, achieving up to 10-100x reduction in required communication rounds.*
+*As seen above, higher local epoch counts ($E=5$, $E=20$) converge faster than FedSGD, consistent with the 10-100x reduction in communication rounds reported in the paper.*
 
 ## 🚀 Getting Started
 

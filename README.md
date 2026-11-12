@@ -1,5 +1,5 @@
 # Applied AI & Deep Learning Replications
-A centralized repository containing from-scratch PyTorch implementations of foundational machine learning research papers. This portfolio demonstrates applied expertise across Computer Vision, Natural Language Processing, and Mathematical Optimization.
+A repository containing from-scratch PyTorch implementations of foundational machine learning research papers. The implementations cover Computer Vision, Natural Language Processing, and Mathematical Optimization.
 
 ###  Implemented Architectures
 1. **[Computer Vision]** LeNet-5 Architecture (*Yann LeCun, 1998*) - [View Notebook](./01_Computer_Vision_LeNet5)
